@@ -16,6 +16,7 @@
 		5F9A188B2867BF5F005CFA18 /* RandomMessagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A188A2867BF5F005CFA18 /* RandomMessagesTests.swift */; };
 		5F9A18952867BF5F005CFA18 /* RandomMessagesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18942867BF5F005CFA18 /* RandomMessagesUITests.swift */; };
 		5F9A18972867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */; };
+		5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		5F9A18902867BF5F005CFA18 /* RandomMessagesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomMessagesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A18942867BF5F005CFA18 /* RandomMessagesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesUITests.swift; sourceTree = "<group>"; };
 		5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,10 @@
 		5F9A18732867BF5D005CFA18 /* RandomMessages */ = {
 			isa = PBXGroup;
 			children = (
-				5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */,
-				5F9A18762867BF5D005CFA18 /* ContentView.swift */,
-				5F9A18782867BF5E005CFA18 /* Assets.xcassets */,
-				5F9A187D2867BF5E005CFA18 /* Persistence.swift */,
-				5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */,
+				5F9A18A62867BF8D005CFA18 /* Utils */,
+				5F9A18A52867BF82005CFA18 /* Views */,
+				5F9A18A42867BF7A005CFA18 /* Controllers */,
+				5F9A18A32867BF73005CFA18 /* Models */,
 				5F9A187A2867BF5E005CFA18 /* Preview Content */,
 			);
 			path = RandomMessages;
@@ -131,6 +132,40 @@
 				5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */,
 			);
 			path = RandomMessagesUITests;
+			sourceTree = "<group>";
+		};
+		5F9A18A32867BF73005CFA18 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5F9A18A42867BF7A005CFA18 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5F9A18A52867BF82005CFA18 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F9A18762867BF5D005CFA18 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5F9A18A62867BF8D005CFA18 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */,
+				5F9A187D2867BF5E005CFA18 /* Persistence.swift */,
+				5F9A18782867BF5E005CFA18 /* Assets.xcassets */,
+				5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +302,7 @@
 				5F9A187E2867BF5E005CFA18 /* Persistence.swift in Sources */,
 				5F9A18772867BF5D005CFA18 /* ContentView.swift in Sources */,
 				5F9A18752867BF5D005CFA18 /* RandomMessagesApp.swift in Sources */,
+				5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

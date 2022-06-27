@@ -10,6 +10,8 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+	static private var messagesGenerator = RandomMessagesGenerator()
+
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
@@ -20,11 +22,18 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
+					VStack {
+						NavigationLink {
+							Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")" + "\n" + ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
+						} label: {
+							Text(item.timestamp!, formatter: itemFormatter)
+						}
+						if let message = item.message {
+							Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
+						} else {
+							Text(item.message ?? "")
+						}
+					}
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -32,15 +41,38 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+//                ToolbarItem {
+//                    Button(action: addItem) {
+//                        Label("Add Item", systemImage: "plus")
+//                    }
+//
+//                }
+				ToolbarItem {
+					Button(action: askMessageKindly) {
+						Label("Add Item", systemImage: "plus")
+					}
+				}
             }
             Text("Select an item")
         }
     }
+
+	private func askMessageKindly() {
+		withAnimation {
+			let newItem = Item(context: viewContext)
+			newItem.timestamp = Date()
+			ContentView.messagesGenerator.inputMessage = "test dummy question ?"
+			newItem.message = ContentView.messagesGenerator.kindlyAskAMessage()
+
+			do {
+				try viewContext.save()
+
+			} catch {
+				let nsError = error as NSError
+				fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+			}
+		}
+	}
 
     private func addItem() {
         withAnimation {
