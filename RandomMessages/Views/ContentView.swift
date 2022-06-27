@@ -24,7 +24,11 @@ struct ContentView: View {
                 ForEach(items) { item in
 					VStack {
 						NavigationLink {
-							Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")" + "\n" + ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
+							VStack {
+								Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")")
+								Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
+								Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
+								 }
 						} label: {
 							Text(item.timestamp!, formatter: itemFormatter)
 						}
