@@ -10,17 +10,17 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-	static private var messagesGenerator = RandomMessagesGenerator()
-
-
+    static private var messagesGenerator = RandomMessagesGenerator()
+    
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-
-	@State
-	var question: String = ""
-
+    
+    @State
+    var question: String = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -30,8 +30,18 @@ struct ContentView: View {
                             NavigationLink {
                                 VStack {
                                     Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")")
+                                    Text("Chart Type 1 :")
                                     Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
+//                                    Divider()
+                                    Text("Chart Type 1 Inverted :")
                                     Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? ""))
+                                    
+                                    Divider()
+                                    Text("Chart Type 2 :")
+                                    Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? "", chartType: .type2))
+//                                    Divider()
+                                    Text("Chart Type 2 Inverted :")
+                                    Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
 //                                    Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
                                 }
                             } label: {
@@ -43,6 +53,8 @@ struct ContentView: View {
                             if let message = item.message {
                                 Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
                                 Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: message))
+                                Text(ContentView.messagesGenerator.correspondancePerChart(message: message, chartType: .type2))
+                                Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
                             } else {
                                 Text(item.message ?? "")
                             }
@@ -74,31 +86,31 @@ struct ContentView: View {
             
         }
     }
-
-	private func sendMessage() {
-		withAnimation {
-			let newItem = Item(context: viewContext)
-			newItem.timestamp = Date()
-			ContentView.messagesGenerator.messageFromUser = "[Question:]\(self.question)"
-			newItem.question = ContentView.messagesGenerator.messageFromUser
-			newItem.message = ContentView.messagesGenerator.kindlyAskAMessage()
-
-			do {
-				try viewContext.save()
-
-			} catch {
-				let nsError = error as NSError
-				fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-			}
-			self.question = ""
-		}
-	}
-
+    
+    private func sendMessage() {
+        withAnimation {
+            let newItem = Item(context: viewContext)
+            newItem.timestamp = Date()
+            ContentView.messagesGenerator.messageFromUser = "[Question:]\(self.question)"
+            newItem.question = ContentView.messagesGenerator.messageFromUser
+            newItem.message = ContentView.messagesGenerator.kindlyAskAMessage()
+            
+            do {
+                try viewContext.save()
+                
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+            self.question = ""
+        }
+    }
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -109,11 +121,11 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -135,6 +147,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-		ContentView(question: "Hello :-)").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView(question: "Hello :-)").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

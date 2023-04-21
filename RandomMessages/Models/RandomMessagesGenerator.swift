@@ -15,6 +15,11 @@ class RandomMessagesGenerator {
     
     var outputMessage: String = "[output]"
     
+    enum ChartType {
+        case type1
+        case type2
+    }
+    
 	// Method Generated & Normalised
 //	var charsAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 //	var charsSpecial = "#@&é\"'(§è!çà)-_^¨$*ù%´`£=+:/;.,?"
@@ -142,10 +147,23 @@ class RandomMessagesGenerator {
 		return message_trad
 	}
     
-    func correspondancePerChart(message: String) -> String {
-        correspondancePerChart(message: message, charChart: charChart)
+    func correspondancePerChart(message: String, chartType: ChartType = .type1) -> String {
+        switch(chartType) {
+        case .type1 :
+            return correspondancePerChart(message: message, charChart: charChart)
+        case .type2 :
+            return correspondancePerChart(message: message, charChart: charChart2)
+        }
     }
 
+    func invCorrespondancePerChart(message: String, chartType: ChartType = .type1) -> String {
+        switch(chartType) {
+        case .type1 :
+            return invCorrespondancePerChart(message: message, charChart: charChart)
+        case .type2 :
+            return invCorrespondancePerChart(message: message, charChart: charChart2)
+        }
+    }
     func correspondancePerChart(message: String, charChart: [[String]]) -> String {
 		var chartSelect = true
 		var message_trad: String = ""
@@ -192,7 +210,7 @@ class RandomMessagesGenerator {
 		return message_trad
 	}
 
-	func invCorrespondancePerChart(message: String) -> String {
+    func invCorrespondancePerChart(message: String, charChart: [[String]]) -> String {
 		var chartSelect = true
 		var message_trad: String = ""
 
