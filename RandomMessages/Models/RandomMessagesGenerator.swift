@@ -9,7 +9,7 @@ import Foundation
 
 class RandomMessagesGenerator {
 
-    let charVersion: String = "?"
+    let charVersion: String = "0.1"
     
 	var messageFromUser: String = "[message]"
     
@@ -43,17 +43,17 @@ class RandomMessagesGenerator {
 //	var charChart3 = [[String]]()
 //
 //		// Method HARDCODED
-//	var charChart2 = [[ "0", "A", "B", "C", "D", "E", "F", "G", "H", "I"],
-//					 [ "J", "1", "K", "L", "M", "N", "O", "P", "Q", "R"],
-//					 [ "S", "T", "2", "U", "V", "W", "X", "Y", "Z", " "],
-//					 [ "a", "b", "c", "3", "d", "e", "f", "g" ,"h", "i"],
-//					 [ "j", "k", "l", "m", "4", "n", "o", "p", "q", "r"],
-//					 [ "s", "t", "u", "v", "w", "5", "x", "y", "z", "."],
-//					 [ "[", "{", "(", ")", "}", "]", "6", "§", "¥", "$"],
-//					 [ "<", ">", "≤", "≥", "+", "-", "*", "7", "/", "\\"],
-//					 [ "#", "@", "&", "%", "£", "€", "°", "\'","8", "\""],
-//					 [ "´", "`", "^", "¨", "~", "æ", "œ", "😃", "😞", "9"]
-//	]
+	var charChart2 = [[ "0", "A", "B", "C", "D", "E", "F", "G", "H", "I"],
+					 [ "J", "1", "K", "L", "M", "N", "O", "P", "Q", "R"],
+					 [ "S", "T", "2", "U", "V", "W", "X", "Y", "Z", " "],
+					 [ "a", "b", "c", "3", "d", "e", "f", "g" ,"h", "i"],
+					 [ "j", "k", "l", "m", "4", "n", "o", "p", "q", "r"],
+					 [ "s", "t", "u", "v", "w", "5", "x", "y", "z", "."],
+					 [ "[", "{", "(", ")", "}", "]", "6", "§", "¥", "$"],
+					 [ "<", ">", "≤", "≥", "+", "-", "*", "7", "/", "\\"],
+					 [ "#", "@", "&", "%", "£", "€", "°", "\'","8", "\""],
+					 [ "´", "`", "^", "¨", "~", "æ", "œ", "\t", "\n", "9"]
+	]
 		// Method HARDCODED
 	var charChart = [[ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
 					 [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
@@ -63,8 +63,8 @@ class RandomMessagesGenerator {
 					 [ "o", "p", "q", "r", "s", "t", "u", "v", "w", "x"],
 					 [ "y", "z", "?", ",", ".", ";", "/", ":", "+", "="],
 					 [ "-", "*", "/", "(", ")", "{", "}", "<", ">", "["],
-					 [ "]", " ", "\\", "#", "@", "&", " ", " ", " ", "\n"],
-					 [  "%", "£", "€", "°", "\'", "\"", "_", "^", "¨", "~"]
+					 [ "]", " ", "\\", "#", "@", "&", " ", " ", "^", "¨"],
+					 [  "%", "£", "€", "°", "\'", "\"", "_", "\t", "\n", "~"]
 	]
 
 	func kindlyAskAMessage() -> String {
@@ -141,8 +141,12 @@ class RandomMessagesGenerator {
 		}
 		return message_trad
 	}
+    
+    func correspondancePerChart(message: String) -> String {
+        correspondancePerChart(message: message, charChart: charChart)
+    }
 
-	func correspondancePerChart(message: String) -> String {
+    func correspondancePerChart(message: String, charChart: [[String]]) -> String {
 		var chartSelect = true
 		var message_trad: String = ""
 
