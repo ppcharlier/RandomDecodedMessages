@@ -18,54 +18,69 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
+	@State
+	var question: String = ""
+
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-					VStack {
-						NavigationLink {
-							VStack {
-								Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")")
-								Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
-								Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
-								 }
-						} label: {
-							Text(item.timestamp!, formatter: itemFormatter)
-						}
-						if let message = item.message {
-							Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
-						} else {
-							Text(item.message ?? "")
-						}
-					}
+            VStack {
+                List {
+                    ForEach(items) { item in
+                        VStack {
+                            NavigationLink {
+                                VStack {
+                                    Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")")
+                                    Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
+                                    Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? ""))
+//                                    Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
+                                }
+                            } label: {
+                                Text(item.timestamp!, formatter: itemFormatter)
+                                if let q = item.question {
+                                    Text(q)
+                                }
+                            }
+                            if let message = item.message {
+                                Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
+                                Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: message))
+                            } else {
+                                Text(item.message ?? "")
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    //                ToolbarItem {
+                    //                    Button(action: addItem) {
+                    //                        Label("Add Item", systemImage: "plus")
+                    //                    }
+                    //
+                    //                }
+                    ToolbarItem {
+                        Button(action: sendMessage) {
+                            Label("Add Item", systemImage: "plus")
+                        }
+                    }
                 }
-//                ToolbarItem {
-//                    Button(action: addItem) {
-//                        Label("Add Item", systemImage: "plus")
-//                    }
-//
-//                }
-				ToolbarItem {
-					Button(action: askMessageKindly) {
-						Label("Add Item", systemImage: "plus")
-					}
-				}
+                Text("Type your message and hit +")
+                Divider()
+                TextField(text: $question) {
+                }
             }
-            Text("Select an item")
+            
         }
     }
 
-	private func askMessageKindly() {
+	private func sendMessage() {
 		withAnimation {
 			let newItem = Item(context: viewContext)
 			newItem.timestamp = Date()
-			ContentView.messagesGenerator.inputMessage = "test dummy question ?"
+			ContentView.messagesGenerator.messageFromUser = "[Question:]\(self.question)"
+			newItem.question = ContentView.messagesGenerator.messageFromUser
 			newItem.message = ContentView.messagesGenerator.kindlyAskAMessage()
 
 			do {
@@ -75,6 +90,7 @@ struct ContentView: View {
 				let nsError = error as NSError
 				fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
 			}
+			self.question = ""
 		}
 	}
 
@@ -119,6 +135,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+		ContentView(question: "Hello :-)").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
