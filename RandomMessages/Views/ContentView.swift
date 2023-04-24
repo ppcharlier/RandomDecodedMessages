@@ -29,31 +29,66 @@ struct ContentView: View {
                         VStack {
                             NavigationLink {
                                 VStack {
-                                    Text("Item at \(item.timestamp!)" + "\n\(item.message ?? "")")
-                                    Text("Chart Type 1 :")
-                                    Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? ""))
-//                                    Divider()
-                                    Text("Chart Type 1 Inverted :")
-                                    Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? ""))
+//                                ScrollView {
                                     
-                                    Divider()
-                                    Text("Chart Type 2 :")
-                                    Text(ContentView.messagesGenerator.correspondancePerChart(message: item.message ?? "", chartType: .type2))
-//                                    Divider()
-                                    Text("Chart Type 2 Inverted :")
-                                    Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
+                                    Text("Item at \(item.timestamp!)\n\(item.message!)")
+                                    
+                                    if let item = item as? Item, let _ = item.message {
+                                        HStack {
+                                            Text("Chart Type 1 :")
+#if !targetEnvironment(simulator)
+                                            AttributedText(attributedString:  parseText(item.chart1A))
+#else
+                                            Text(item.chart1A)
+                                                .font(.system(.body, design: .monospaced))
+#endif
+                                        }
+                                        
+                                        Divider()
+                                        HStack {
+                                            Text("Chart Type 1 Inverted :")
+#if !targetEnvironment(simulator)
+                                            AttributedText(attributedString: parseText(item.chart1B))
+#else
+                                            Text(item.chart1B)
+                                                .font(.system(.body, design: .monospaced))
+                                            
+#endif
+                                        }
+                                        
+                                        Divider()
+                                        HStack {
+                                            Text("Chart Type 2 :")
+#if !targetEnvironment(simulator)
+                                            AttributedText(attributedString: parseText(item.chart2A))
+#else
+                                            Text(item.chart2A)
+                                                .font(.system(.body, design: .monospaced))
+#endif
+                                        }
+                                        Divider()
+                                        HStack {
+                                            Text("Chart Type 2 Inverted :")
+#if targetEnvironment(simulator)
+                                            Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
+                                                .font(.system(.body, design: .monospaced))
+#else
+                                            //                                        AttributedText(attributedString: parseText(item.chart2B))
+#endif
+                                        }
+                                    }
 //                                    Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
                                 }
                             } label: {
-                                Text(item.timestamp!, formatter: itemFormatter)
+//                                Text(item.timestamp, formatter: itemFormatter)
                                 if let q = item.question {
                                     Text(q)
                                 }
                             }
                             if let message = item.message {
-                                Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
+//                                Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
                                 Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: message))
-                                Text(ContentView.messagesGenerator.correspondancePerChart(message: message, chartType: .type2))
+//                                Text(ContentView.messagesGenerator.correspondancePerChart(message: message, chartType: .type2))
                                 Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
                             } else {
                                 Text(item.message ?? "")
@@ -86,6 +121,34 @@ struct ContentView: View {
             
         }
     }
+    
+    func parseText(_ text: String) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: "")
+        
+        var charAttributes: [Character: [NSAttributedString.Key: Any]] = [:]
+        
+        let characters = Array(text)
+        for char in characters {
+            if charAttributes[char] == nil {
+                let randomColor = UIColor(red: .random(in: 0.5...1),
+                                          green: .random(in: 0.5...1),
+                                          blue: .random(in: 0.5...1),
+                                          alpha: 1)
+                let randomFontWeight: UIFont.Weight = [.regular, .medium, .bold, .heavy].randomElement()!
+                let attributes: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: randomColor,
+                    .font: UIFont.monospacedSystemFont(ofSize: 17, weight: randomFontWeight)
+                ]
+                charAttributes[char] = attributes
+            }
+            
+            let attributedChar = NSAttributedString(string: String(char), attributes: charAttributes[char])
+            attributedString.append(attributedChar)
+        }
+        
+        return attributedString
+    }
+
     
     private func sendMessage() {
         withAnimation {
