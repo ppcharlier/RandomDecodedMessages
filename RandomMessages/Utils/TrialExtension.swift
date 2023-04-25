@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension Item {
+extension Trial {
     
     public var chart1A : String {
         let rmg = RandomMessagesGenerator()
-        if let msg = self.message {
+        if let msg = self.result {
             return  rmg.correspondancePerChart(message: msg, chartType: .type1)
         }else{
             return ""
@@ -21,7 +21,7 @@ extension Item {
     
     public var chart1B : String {
         let rmg = RandomMessagesGenerator()
-        if let msg = self.message {
+        if let msg = self.result {
             return  rmg.invCorrespondancePerChart(message: msg, chartType: .type1)
         }else{
             return ""
@@ -30,7 +30,7 @@ extension Item {
     
     public var chart2A : String {
         let rmg = RandomMessagesGenerator()
-        if let msg = self.message {
+        if let msg = self.result {
             return  rmg.correspondancePerChart(message: msg, chartType: .type2)
         }else{
             return ""
@@ -39,7 +39,7 @@ extension Item {
     
     public var chart2B : String {
         let rmg = RandomMessagesGenerator()
-        if let msg = self.message {
+        if let msg = self.result {
             return  rmg.invCorrespondancePerChart(message: msg, chartType: .type2)
         }else{
             return ""

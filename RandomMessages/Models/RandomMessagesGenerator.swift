@@ -88,13 +88,13 @@ class RandomMessagesGenerator {
 //		let message_parts = arc4random()/UInt32.max*10 // * 999999
 		var message_string : String = ""
 		var message_add: String
-		var remIter: Int = 1 + Int(arc4random()) % 3
+        var remIter: Int = .random(in: 1...3)
 		repeat {
 			arc4random_stir()
 			message_add = String(arc4random())
 			message_string += message_add
 			remIter -= 1
-        } while message_add.count % 2 != 0 && remIter > 0
+        } while remIter > 0
 //		} while message_add.count % 2 == 1 && remIter > 0
 //		sleep(200)
 //		arc4random_stir()

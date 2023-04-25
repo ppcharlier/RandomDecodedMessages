@@ -13,9 +13,11 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        
         for _ in 0..<2 {
-            let newItem = Item(context: viewContext)
+            let newItem = Trial(context: viewContext)
             newItem.timestamp = Date()
+            newItem.result = RandomMessagesGenerator().kindlyAskAMessage()
         }
         do {
             try viewContext.save()
@@ -28,10 +30,10 @@ struct PersistenceController {
         return result
     }()
 
-    let container: NSPersistentCloudKitContainer
+    let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "RandomMessages")
+        container = NSPersistentContainer(name: "RandomMessages")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

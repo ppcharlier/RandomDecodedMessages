@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  RandomDecodedMessages
+
+  Created by Pierre-Philippe Charlier on 25/04/2023.
+  
+*/
+
+"RAM_PLACEHOLDER" = "Earlier thoughts";
+"RAM_PROMPT" = "Enter your thoughts and hit +";

@@ -18,7 +18,8 @@
 		5F9A18972867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */; };
 		5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */; };
 		EB0317D929F7103500E2236C /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0317D829F7103500E2236C /* AttributedText.swift */; };
-		EB0317DB29F712D700E2236C /* ItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0317DA29F712D700E2236C /* ItemExtension.swift */; };
+		EB0317DB29F712D700E2236C /* TrialExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0317DA29F712D700E2236C /* TrialExtension.swift */; };
+		EB9A965C29F7FD1100162114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB9A965B29F7FD1100162114 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +54,8 @@
 		5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesGenerator.swift; sourceTree = "<group>"; };
 		EB0317D829F7103500E2236C /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
-		EB0317DA29F712D700E2236C /* ItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemExtension.swift; sourceTree = "<group>"; };
+		EB0317DA29F712D700E2236C /* TrialExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExtension.swift; sourceTree = "<group>"; };
+		EB9A965B29F7FD1100162114 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				5F9A18A42867BF7A005CFA18 /* Controllers */,
 				5F9A18A32867BF73005CFA18 /* Models */,
 				5F9A187A2867BF5E005CFA18 /* Preview Content */,
+				EB9A965B29F7FD1100162114 /* Localizable.strings */,
 			);
 			path = RandomMessages;
 			sourceTree = "<group>";
@@ -169,7 +172,7 @@
 				5F9A187D2867BF5E005CFA18 /* Persistence.swift */,
 				5F9A18782867BF5E005CFA18 /* Assets.xcassets */,
 				5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */,
-				EB0317DA29F712D700E2236C /* ItemExtension.swift */,
+				EB0317DA29F712D700E2236C /* TrialExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F9A187C2867BF5E005CFA18 /* Preview Assets.xcassets in Resources */,
+				EB9A965C29F7FD1100162114 /* Localizable.strings in Resources */,
 				5F9A18792867BF5E005CFA18 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +312,7 @@
 				5F9A18812867BF5F005CFA18 /* RandomMessages.xcdatamodeld in Sources */,
 				5F9A187E2867BF5E005CFA18 /* Persistence.swift in Sources */,
 				5F9A18772867BF5D005CFA18 /* ContentView.swift in Sources */,
-				EB0317DB29F712D700E2236C /* ItemExtension.swift in Sources */,
+				EB0317DB29F712D700E2236C /* TrialExtension.swift in Sources */,
 				5F9A18752867BF5D005CFA18 /* RandomMessagesApp.swift in Sources */,
 				5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */,
 			);
@@ -467,12 +471,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"RandomMessages/Preview Content\"";
 				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RDM;
+				INFOPLIST_KEY_CFBundleDisplayName = RAM;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -497,12 +501,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"RandomMessages/Preview Content\"";
 				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RDM;
+				INFOPLIST_KEY_CFBundleDisplayName = RAM;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

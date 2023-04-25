@@ -14,85 +14,87 @@ struct ContentView: View {
     
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Trial.timestamp, ascending: false)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    var items: FetchedResults<Trial>
     
     @State
-    var question: String = ""
+    var thougths: String = "Hello ^^"
     
     var body: some View {
         NavigationView {
             VStack {
+                Text("RAM_PROMPT")
+                Divider()
+                TextField(LocalizedStringKey("RAM_PLACEHOLDER"), text: $thougths).padding()
                 List {
                     ForEach(items) { item in
                         VStack {
                             NavigationLink {
-                                VStack {
-//                                ScrollView {
+                                //                                ScrollView {
+                                ScrollView {
+                                    Text("\(item.thoughts!)")
+                                    Text("Item at \(item.timestamp!, formatter: detailDateFormatter)\n\(item.result!)")
                                     
-                                    Text("Item at \(item.timestamp!)\n\(item.message!)")
-                                    
-                                    if let item = item as? Item, let _ = item.message {
+                                    if let _ = item.result {
                                         HStack {
                                             Text("Chart Type 1 :")
-#if !targetEnvironment(simulator)
+//#if !targetEnvironment(simulator)
                                             AttributedText(attributedString:  parseText(item.chart1A))
-#else
-                                            Text(item.chart1A)
-                                                .font(.system(.body, design: .monospaced))
-#endif
+//#else
+//                                            Text(item.chart1A)
+//                                                .font(.system(.body, design: .monospaced))
+//#endif
                                         }
                                         
                                         Divider()
                                         HStack {
                                             Text("Chart Type 1 Inverted :")
-#if !targetEnvironment(simulator)
+//#if !targetEnvironment(simulator)
                                             AttributedText(attributedString: parseText(item.chart1B))
-#else
-                                            Text(item.chart1B)
-                                                .font(.system(.body, design: .monospaced))
-                                            
-#endif
+//#else
+//                                            Text(item.chart1B)
+//                                                .font(.system(.body, design: .monospaced))
+//
+//#endif
                                         }
                                         
                                         Divider()
                                         HStack {
                                             Text("Chart Type 2 :")
-#if !targetEnvironment(simulator)
+//#if !targetEnvironment(simulator)
                                             AttributedText(attributedString: parseText(item.chart2A))
-#else
-                                            Text(item.chart2A)
-                                                .font(.system(.body, design: .monospaced))
-#endif
+//#else
+//                                            Text(item.chart2A)
+//                                                .font(.system(.body, design: .monospaced))
+//#endif
                                         }
                                         Divider()
                                         HStack {
                                             Text("Chart Type 2 Inverted :")
-#if targetEnvironment(simulator)
-                                            Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
-                                                .font(.system(.body, design: .monospaced))
-#else
-                                            //                                        AttributedText(attributedString: parseText(item.chart2B))
-#endif
+//#if targetEnvironment(simulator)
+//                                            Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
+//                                                .font(.system(.body, design: .monospaced))
+//#else
+                                            AttributedText(attributedString: parseText(item.chart2B))
+//#endif
                                         }
                                     }
-//                                    Text( ContentView.messagesGenerator.interpret(message: item.message ?? ""))
                                 }
                             } label: {
-//                                Text(item.timestamp, formatter: itemFormatter)
-                                if let q = item.question {
-                                    Text(q)
+                                VStack(alignment: .leading){
+                                    Text("Item at \(item.timestamp!,formatter: dateFormatter)")
+                                    Text("Raw data: \(item.result!)")
+                                    Text("Thoughts : \(item.thoughts!)")
+                                    Divider()
+                                    Text(item.chart1A)
+                                    Text(item.chart1B)
+                                    Text(item.chart2A)
+                                    Text(item.chart2B)
                                 }
                             }
-                            if let message = item.message {
-//                                Text(message + "\n" +  ContentView.messagesGenerator.correspondancePerChart(message: message))
-                                Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: message))
-//                                Text(ContentView.messagesGenerator.correspondancePerChart(message: message, chartType: .type2))
-                                Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
-                            } else {
-                                Text(item.message ?? "")
-                            }
+                            
+                        
                         }
                     }
                     .onDelete(perform: deleteItems)
@@ -113,10 +115,8 @@ struct ContentView: View {
                         }
                     }
                 }
-                Text("Type your message and hit +")
-                Divider()
-                TextField(text: $question) {
-                }
+                
+                
             }
             
         }
@@ -148,15 +148,15 @@ struct ContentView: View {
         
         return attributedString
     }
-
+    
     
     private func sendMessage() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            let newItem = Trial(context: viewContext)
             newItem.timestamp = Date()
-            ContentView.messagesGenerator.messageFromUser = "[Question:]\(self.question)"
-            newItem.question = ContentView.messagesGenerator.messageFromUser
-            newItem.message = ContentView.messagesGenerator.kindlyAskAMessage()
+            ContentView.messagesGenerator.messageFromUser = "[Thougths:]\(self.thougths)"
+            newItem.thoughts = self.thougths
+            newItem.result = ContentView.messagesGenerator.kindlyAskAMessage()
             
             do {
                 try viewContext.save()
@@ -165,13 +165,29 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
-            self.question = ""
+            self.thougths = ""
         }
     }
     
+    // MARK: Separator formatter
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        formatter.timeZone = .none
+        return formatter
+    }()
+    private let detailDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        formatter.timeZone = .none
+        return formatter
+    }()
+    
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            let newItem = Trial(context: viewContext)
             newItem.timestamp = Date()
             
             do {
@@ -210,6 +226,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(question: "Hello :-)").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView(thougths: "Hello :-) I'm trying my randomness reading app ^^").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
