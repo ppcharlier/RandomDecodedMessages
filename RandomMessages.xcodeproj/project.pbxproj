@@ -17,9 +17,6 @@
 		5F9A18952867BF5F005CFA18 /* RandomMessagesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18942867BF5F005CFA18 /* RandomMessagesUITests.swift */; };
 		5F9A18972867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */; };
 		5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */; };
-		EB0317D929F7103500E2236C /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0317D829F7103500E2236C /* AttributedText.swift */; };
-		EB0317DB29F712D700E2236C /* TrialExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0317DA29F712D700E2236C /* TrialExtension.swift */; };
-		EB9A965C29F7FD1100162114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB9A965B29F7FD1100162114 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,22 +37,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5F9A18712867BF5D005CFA18 /* RandomDecodedMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomDecodedMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F9A18712867BF5D005CFA18 /* RandomMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesApp.swift; sourceTree = "<group>"; };
 		5F9A18762867BF5D005CFA18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5F9A18782867BF5E005CFA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F9A187B2867BF5E005CFA18 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5F9A187D2867BF5E005CFA18 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5F9A18802867BF5F005CFA18 /* RandomMessages.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RandomMessages.xcdatamodel; sourceTree = "<group>"; };
-		5F9A18862867BF5F005CFA18 /* RandomDecodedMessagesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomDecodedMessagesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F9A18862867BF5F005CFA18 /* RandomMessagesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomMessagesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A188A2867BF5F005CFA18 /* RandomMessagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesTests.swift; sourceTree = "<group>"; };
-		5F9A18902867BF5F005CFA18 /* RandomDecodedMessagesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomDecodedMessagesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F9A18902867BF5F005CFA18 /* RandomMessagesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomMessagesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A18942867BF5F005CFA18 /* RandomMessagesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesUITests.swift; sourceTree = "<group>"; };
 		5F9A18962867BF5F005CFA18 /* RandomMessagesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F9A18A72867BFBB005CFA18 /* RandomMessagesGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesGenerator.swift; sourceTree = "<group>"; };
-		EB0317D829F7103500E2236C /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
-		EB0317DA29F712D700E2236C /* TrialExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExtension.swift; sourceTree = "<group>"; };
-		EB9A965B29F7FD1100162114 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +90,9 @@
 		5F9A18722867BF5D005CFA18 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5F9A18712867BF5D005CFA18 /* RandomDecodedMessages.app */,
-				5F9A18862867BF5F005CFA18 /* RandomDecodedMessagesTests.xctest */,
-				5F9A18902867BF5F005CFA18 /* RandomDecodedMessagesUITests.xctest */,
+				5F9A18712867BF5D005CFA18 /* RandomMessages.app */,
+				5F9A18862867BF5F005CFA18 /* RandomMessagesTests.xctest */,
+				5F9A18902867BF5F005CFA18 /* RandomMessagesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,7 +105,6 @@
 				5F9A18A42867BF7A005CFA18 /* Controllers */,
 				5F9A18A32867BF73005CFA18 /* Models */,
 				5F9A187A2867BF5E005CFA18 /* Preview Content */,
-				EB9A965B29F7FD1100162114 /* Localizable.strings */,
 			);
 			path = RandomMessages;
 			sourceTree = "<group>";
@@ -160,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				5F9A18762867BF5D005CFA18 /* ContentView.swift */,
-				EB0317D829F7103500E2236C /* AttributedText.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,7 +164,6 @@
 				5F9A187D2867BF5E005CFA18 /* Persistence.swift */,
 				5F9A18782867BF5E005CFA18 /* Assets.xcassets */,
 				5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */,
-				EB0317DA29F712D700E2236C /* TrialExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -180,9 +171,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5F9A18702867BF5D005CFA18 /* RandomDecodedMessages */ = {
+		5F9A18702867BF5D005CFA18 /* RandomMessages */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5F9A189A2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessages" */;
+			buildConfigurationList = 5F9A189A2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessages" */;
 			buildPhases = (
 				5F9A186D2867BF5D005CFA18 /* Sources */,
 				5F9A186E2867BF5D005CFA18 /* Frameworks */,
@@ -192,14 +183,14 @@
 			);
 			dependencies = (
 			);
-			name = RandomDecodedMessages;
+			name = RandomMessages;
 			productName = RandomMessages;
-			productReference = 5F9A18712867BF5D005CFA18 /* RandomDecodedMessages.app */;
+			productReference = 5F9A18712867BF5D005CFA18 /* RandomMessages.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5F9A18852867BF5F005CFA18 /* RandomDecodedMessagesTests */ = {
+		5F9A18852867BF5F005CFA18 /* RandomMessagesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5F9A189D2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessagesTests" */;
+			buildConfigurationList = 5F9A189D2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessagesTests" */;
 			buildPhases = (
 				5F9A18822867BF5F005CFA18 /* Sources */,
 				5F9A18832867BF5F005CFA18 /* Frameworks */,
@@ -210,14 +201,14 @@
 			dependencies = (
 				5F9A18882867BF5F005CFA18 /* PBXTargetDependency */,
 			);
-			name = RandomDecodedMessagesTests;
+			name = RandomMessagesTests;
 			productName = RandomMessagesTests;
-			productReference = 5F9A18862867BF5F005CFA18 /* RandomDecodedMessagesTests.xctest */;
+			productReference = 5F9A18862867BF5F005CFA18 /* RandomMessagesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5F9A188F2867BF5F005CFA18 /* RandomDecodedMessagesUITests */ = {
+		5F9A188F2867BF5F005CFA18 /* RandomMessagesUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5F9A18A02867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessagesUITests" */;
+			buildConfigurationList = 5F9A18A02867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessagesUITests" */;
 			buildPhases = (
 				5F9A188C2867BF5F005CFA18 /* Sources */,
 				5F9A188D2867BF5F005CFA18 /* Frameworks */,
@@ -228,9 +219,9 @@
 			dependencies = (
 				5F9A18922867BF5F005CFA18 /* PBXTargetDependency */,
 			);
-			name = RandomDecodedMessagesUITests;
+			name = RandomMessagesUITests;
 			productName = RandomMessagesUITests;
-			productReference = 5F9A18902867BF5F005CFA18 /* RandomDecodedMessagesUITests.xctest */;
+			productReference = 5F9A18902867BF5F005CFA18 /* RandomMessagesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -256,7 +247,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5F9A186C2867BF5D005CFA18 /* Build configuration list for PBXProject "RandomDecodedMessages" */;
+			buildConfigurationList = 5F9A186C2867BF5D005CFA18 /* Build configuration list for PBXProject "RandomMessages" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -269,9 +260,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5F9A18702867BF5D005CFA18 /* RandomDecodedMessages */,
-				5F9A18852867BF5F005CFA18 /* RandomDecodedMessagesTests */,
-				5F9A188F2867BF5F005CFA18 /* RandomDecodedMessagesUITests */,
+				5F9A18702867BF5D005CFA18 /* RandomMessages */,
+				5F9A18852867BF5F005CFA18 /* RandomMessagesTests */,
+				5F9A188F2867BF5F005CFA18 /* RandomMessagesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -282,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F9A187C2867BF5E005CFA18 /* Preview Assets.xcassets in Resources */,
-				EB9A965C29F7FD1100162114 /* Localizable.strings in Resources */,
 				5F9A18792867BF5E005CFA18 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,11 +298,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB0317D929F7103500E2236C /* AttributedText.swift in Sources */,
 				5F9A18812867BF5F005CFA18 /* RandomMessages.xcdatamodeld in Sources */,
 				5F9A187E2867BF5E005CFA18 /* Persistence.swift in Sources */,
 				5F9A18772867BF5D005CFA18 /* ContentView.swift in Sources */,
-				EB0317DB29F712D700E2236C /* TrialExtension.swift in Sources */,
 				5F9A18752867BF5D005CFA18 /* RandomMessagesApp.swift in Sources */,
 				5F9A18A82867BFBB005CFA18 /* RandomMessagesGenerator.swift in Sources */,
 			);
@@ -340,12 +328,12 @@
 /* Begin PBXTargetDependency section */
 		5F9A18882867BF5F005CFA18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5F9A18702867BF5D005CFA18 /* RandomDecodedMessages */;
+			target = 5F9A18702867BF5D005CFA18 /* RandomMessages */;
 			targetProxy = 5F9A18872867BF5F005CFA18 /* PBXContainerItemProxy */;
 		};
 		5F9A18922867BF5F005CFA18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5F9A18702867BF5D005CFA18 /* RandomDecodedMessages */;
+			target = 5F9A18702867BF5D005CFA18 /* RandomMessages */;
 			targetProxy = 5F9A18912867BF5F005CFA18 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,7 +389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -455,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -471,12 +459,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RandomMessages/Preview Content\"";
-				DEVELOPMENT_TEAM = AGT3U9LB4N;
+				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RAM;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,7 +474,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessages;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessages;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -501,12 +488,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RandomMessages/Preview Content\"";
-				DEVELOPMENT_TEAM = AGT3U9LB4N;
+				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RAM;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -517,7 +503,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessages;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessages;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -536,12 +522,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessagesTests;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessagesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RandomDecodedMessages.app/RandomDecodedMessages";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RandomMessages.app/RandomMessages";
 			};
 			name = Debug;
 		};
@@ -556,12 +542,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessagesTests;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessagesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RandomDecodedMessages.app/RandomDecodedMessages";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RandomMessages.app/RandomMessages";
 			};
 			name = Release;
 		};
@@ -574,7 +560,7 @@
 				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessagesUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessagesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -592,7 +578,7 @@
 				DEVELOPMENT_TEAM = NE4QXKC7G5;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomDecodedMessagesUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = be.ppcharlier.RandomMessagesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -604,7 +590,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5F9A186C2867BF5D005CFA18 /* Build configuration list for PBXProject "RandomDecodedMessages" */ = {
+		5F9A186C2867BF5D005CFA18 /* Build configuration list for PBXProject "RandomMessages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9A18982867BF5F005CFA18 /* Debug */,
@@ -613,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5F9A189A2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessages" */ = {
+		5F9A189A2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9A189B2867BF5F005CFA18 /* Debug */,
@@ -622,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5F9A189D2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessagesTests" */ = {
+		5F9A189D2867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessagesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9A189E2867BF5F005CFA18 /* Debug */,
@@ -631,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5F9A18A02867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomDecodedMessagesUITests" */ = {
+		5F9A18A02867BF5F005CFA18 /* Build configuration list for PBXNativeTarget "RandomMessagesUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9A18A12867BF5F005CFA18 /* Debug */,

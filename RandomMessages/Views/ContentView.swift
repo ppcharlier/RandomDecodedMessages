@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+//    @EnvironmentObject(\.colorScheme) private var colorScheme = .dark
     @Environment(\.managedObjectContext) private var viewContext
     static private var messagesGenerator = RandomMessagesGenerator()
     
@@ -30,72 +31,91 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         VStack {
-                            NavigationLink {
-                                //                                ScrollView {
-                                ScrollView {
-                                    Text("\(item.thoughts!)")
-                                    Text("Item at \(item.timestamp!, formatter: detailDateFormatter)\n\(item.result!)")
-                                    
-                                    if let _ = item.result {
-                                        HStack {
-                                            Text("Chart Type 1 :")
-//#if !targetEnvironment(simulator)
-                                            AttributedText(attributedString:  parseText(item.chart1A))
-//#else
-//                                            Text(item.chart1A)
-//                                                .font(.system(.body, design: .monospaced))
-//#endif
-                                        }
-                                        
-                                        Divider()
-                                        HStack {
-                                            Text("Chart Type 1 Inverted :")
-//#if !targetEnvironment(simulator)
-                                            AttributedText(attributedString: parseText(item.chart1B))
-//#else
-//                                            Text(item.chart1B)
-//                                                .font(.system(.body, design: .monospaced))
+//                            NavigationLink {
+//                                //                                ScrollView {
+//                                ScrollView {
+//                                    Text("\(item.thoughts!)")
+//                                    Text("Item at \(item.timestamp!, formatter: detailDateFormatter)\n\(item.result!)")
 //
-//#endif
-                                        }
-                                        
-                                        Divider()
-                                        HStack {
-                                            Text("Chart Type 2 :")
-//#if !targetEnvironment(simulator)
-                                            AttributedText(attributedString: parseText(item.chart2A))
-//#else
-//                                            Text(item.chart2A)
-//                                                .font(.system(.body, design: .monospaced))
-//#endif
-                                        }
-                                        Divider()
-                                        HStack {
-                                            Text("Chart Type 2 Inverted :")
-//#if targetEnvironment(simulator)
-//                                            Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
-//                                                .font(.system(.body, design: .monospaced))
-//#else
-                                            AttributedText(attributedString: parseText(item.chart2B))
-//#endif
-                                        }
-                                    }
-                                }
-                            } label: {
+//                                    if let _ = item.result {
+//                                        HStack {
+//                                            Text("Chart Type 1 :")
+////#if !targetEnvironment(simulator)
+//                                            AttributedText(attributedString:  parseText(item.chart1A))
+////#else
+////                                            Text(item.chart1A)
+////                                                .font(.system(.body, design: .monospaced))
+////#endif
+//                                        }
+//
+//                                        Divider()
+//                                        HStack {
+//                                            Text("Chart Type 1 Inverted :")
+////#if !targetEnvironment(simulator)
+//                                            AttributedText(attributedString: parseText(item.chart1B))
+////#else
+////                                            Text(item.chart1B)
+////                                                .font(.system(.body, design: .monospaced))
+////
+////#endif
+//                                        }
+//
+//                                        Divider()
+//                                        HStack {
+//                                            Text("Chart Type 2 :")
+////#if !targetEnvironment(simulator)
+//                                            AttributedText(attributedString: parseText(item.chart2A))
+////#else
+////                                            Text(item.chart2A)
+////                                                .font(.system(.body, design: .monospaced))
+////#endif
+//                                        }
+//                                        Divider()
+//                                        HStack {
+//                                            Text("Chart Type 2 Inverted :")
+////#if targetEnvironment(simulator)
+////                                            Text(ContentView.messagesGenerator.invCorrespondancePerChart(message: item.message ?? "", chartType: .type2))
+////                                                .font(.system(.body, design: .monospaced))
+////#else
+//                                            AttributedText(attributedString: parseText(item.chart2B))
+////#endif
+//                                        }
+//                                    }
+//                                }
+//                            } label: {
                                 VStack(alignment: .leading){
                                     Text("Item at \(item.timestamp!,formatter: dateFormatter)")
-                                    Text("Raw data: \(item.result!)")
+                                    Text("Raw data:")
+                                    Text("\(item.result!)")
+//                                    Divider()
                                     Text("Thoughts : \(item.thoughts!)")
                                     Divider()
-                                    Text(item.chart1A)
-                                    Text(item.chart1B)
-                                    Text(item.chart2A)
-                                    Text(item.chart2B)
+//                                    Text(item.chart1A)
+//                                    Text(item.chart1B)
+//                                    Text(item.chart2A)
+//                                    Text(item.chart2B)
+                                    Group {
+//                                        Text("Chart1:")
+                                        AttributedText(attributedString: parseText(item.chart1A))
+//                                        Text("Chart1 inv:")
+//                                        AttributedText(attributedString: parseText(item.chart1B))
+//                                        Text("Chart2 :")
+//                                        AttributedText(attributedString: parseText(item.chart2A))
+//                                        Text("Chart2 inv:")
+//                                        AttributedText(attributedString: parseText(item.chart2B))
+                                    }.font(.system(.body, design: .monospaced))
                                 }
-                            }
+//                            }
+                            .padding()
                             
-                        
+//                            if item != items.last {
+//                                Divider()
+//                                Divider()
+//                            }
                         }
+//                        .background(Color.background)
+                        .padding()
+//                        .cornerRadius(5)
                     }
                     .onDelete(perform: deleteItems)
                 }
