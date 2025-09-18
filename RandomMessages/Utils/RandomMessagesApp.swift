@@ -5,16 +5,16 @@ import SwiftUI
 struct DecodingResult: Identifiable, Equatable {
     let id = UUID()
     let timestamp: Date
+    let userQuery: String // Champ ajouté pour la phrase de l'utilisateur
     let numbers: [UInt64]
     let decodedASCII: String
     let decodedUTF8: String
     
-    // Nouveaux champs pour la plus longue séquence
     let longestUTF8Sequence: String
     let longestUTF8StartBit: Int
     let longestUTF8ByteLength: Int
 
-    var rating: Int = 0 // 0 = non noté, 1-5 = note
+    var rating: Int = 0
 }
 
 
@@ -119,6 +119,14 @@ struct DecodingDetailView: View {
 
     var body: some View {
         List {
+            // NOUVELLE SECTION pour la requête de l'utilisateur
+            Section(header: Text("Votre Requête")) {
+                Text(result.userQuery.isEmpty ? "[Aucune requête spécifiée]" : result.userQuery)
+                    .font(.headline)
+                    .foregroundColor(result.userQuery.isEmpty ? .secondary : .primary)
+                    .italic()
+            }
+            
             Section(header: Text("Évaluation de la Compréhension")) {
                 HStack {
                     Spacer()
@@ -127,8 +135,7 @@ struct DecodingDetailView: View {
                 }.padding(.vertical)
             }
             
-            // NOUVELLE SECTION pour la plus longue séquence
-            Section(header: Text("Plus longue séquence UTF-8 lisible")) {
+            Section(header: Text("Plus longue séquence UTF-8 lisible ('Réponse')")) {
                 if result.longestUTF8Sequence.isEmpty {
                     Text("Aucune séquence significative trouvée.").foregroundColor(.secondary)
                 } else {
@@ -139,14 +146,12 @@ struct DecodingDetailView: View {
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
                         Text("Position de départ : bit N°\(result.longestUTF8StartBit)")
-                    }
-                    .font(.subheadline).foregroundColor(.secondary)
+                    }.font(.subheadline).foregroundColor(.secondary)
                     
                     HStack {
                          Image(systemName: "ruler")
                          Text("Longueur : \(result.longestUTF8ByteLength) octets (\(result.longestUTF8ByteLength * 8) bits)")
-                    }
-                    .font(.subheadline).foregroundColor(.secondary)
+                    }.font(.subheadline).foregroundColor(.secondary)
                 }
             }
 
@@ -154,14 +159,6 @@ struct DecodingDetailView: View {
                 Text(result.decodedUTF8).font(.system(.body, design: .default))
             }
             
-            Section(header: Text("Décodage ASCII (caractères imprimables)")) {
-                if result.decodedASCII.isEmpty {
-                    Text("Aucun caractère ASCII imprimable trouvé.").foregroundColor(.secondary)
-                } else {
-                    Text(result.decodedASCII).font(.system(.body, design: .serif))
-                }
-            }
-
             Section(header: Text("Nombres Aléatoires (Hexadécimal)")) {
                 Text(formatNumbers(result.numbers))
                     .font(.system(.body, design: .monospaced))
@@ -173,7 +170,7 @@ struct DecodingDetailView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(Text(result.timestamp, style: .relative))
+        .navigationTitle(Text(result.timestamp, style: .time))
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -188,6 +185,7 @@ struct DecodingDetailView: View {
 struct ContentView: View {
     @State private var history: [DecodingResult] = []
     @State private var isProcessing = false
+    @State private var userQuery: String = "" // État pour le champ de texte
     
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter(); formatter.dateStyle = .medium; formatter.timeStyle = .short
@@ -197,21 +195,31 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                HStack {
-                    Button(action: generateAndDecode) {
-                        Label("Générer et Analyser", systemImage: "magnifyingglass.circle")
-                            .font(.headline)
-                    }
-                    .buttonStyle(.borderedProminent).tint(.blue).disabled(isProcessing)
-                    if isProcessing { ProgressView().padding(.leading, 10) }
-                }
-                .padding().frame(maxWidth: .infinity).background(Color(.systemGroupedBackground))
+                // --- Panneau de contrôle avec champ de texte ---
+                VStack(spacing: 12) {
+                    TextField("Écrivez une phrase ou une question ici...", text: $userQuery, axis: .vertical)
+                        .padding(10)
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(10)
+                        .lineLimit(1...3)
 
+                    HStack {
+                        Button(action: generateAndDecode) {
+                            Label("Générer une Réponse", systemImage: "wand.and.stars")
+                                .font(.headline)
+                        }
+                        .buttonStyle(.borderedProminent).tint(.blue).disabled(isProcessing)
+                        if isProcessing { ProgressView().padding(.leading, 10) }
+                    }
+                }
+                .padding().background(Color(.systemGroupedBackground))
+
+                // --- Historique ---
                 if history.isEmpty {
                     VStack {
                         Spacer()
                         Text("Aucun historique.").font(.title2).foregroundColor(.secondary)
-                        Text("Appuyez sur 'Générer et Analyser' pour commencer.").foregroundColor(.secondary)
+                        Text("Écrivez une phrase et appuyez sur 'Générer' pour commencer.").foregroundColor(.secondary)
                         Spacer()
                     }
                 } else {
@@ -225,25 +233,32 @@ struct ContentView: View {
                         }
                     }.listStyle(InsetGroupedListStyle())
                 }
+            }.toolbar {
+                EditButton()
             }
-            .navigationTitle("Analyseur de Bits").toolbar { EditButton() }
+            .navigationTitle("Oracle de Bits")
+            
         }
     }
     
     @ViewBuilder
     private func historyRow(for result: DecodingResult) -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 5) {
-                Text(result.timestamp, formatter: dateFormatter).font(.headline)
-                Text(result.longestUTF8Sequence.isEmpty ? "[Aucune séquence trouvée]" : result.longestUTF8Sequence)
-                    .font(.system(.body, design: .monospaced)).lineLimit(2).foregroundColor(.secondary)
-            }
-            Spacer()
-            if result.rating > 0 {
-                HStack(spacing: 2) {
-                    Text("\(result.rating)").bold()
-                    Image(systemName: "star.fill")
-                }.font(.caption).foregroundColor(.yellow)
+        VStack(alignment: .leading, spacing: 8) {
+            Text(result.timestamp, formatter: dateFormatter).font(.caption).foregroundColor(.secondary)
+            Text(result.userQuery.isEmpty ? "[Requête vide]" : result.userQuery)
+                .font(.headline.italic())
+                .lineLimit(2)
+            
+            HStack {
+                Text(result.longestUTF8Sequence.isEmpty ? "[Aucune réponse trouvée]" : "Réponse : \"\(result.longestUTF8Sequence)\"")
+                    .font(.system(.body, design: .monospaced)).lineLimit(2).foregroundColor(.primary)
+                Spacer()
+                if result.rating > 0 {
+                    HStack(spacing: 2) {
+                        Text("\(result.rating)").bold()
+                        Image(systemName: "star.fill")
+                    }.font(.caption).foregroundColor(.yellow)
+                }
             }
         }.padding(.vertical, 6)
     }
@@ -254,81 +269,57 @@ struct ContentView: View {
 
     private func generateAndDecode() {
         isProcessing = true
+        let queryForThisRun = userQuery // Capturer la requête actuelle
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let sequenceLength = Int.random(in: 5...12)
+            let sequenceLength = Int.random(in: 8...15)
             let numbers = (0..<sequenceLength).map { _ in UInt64.random(in: .min ... .max) }
 
-            // Décodages classiques
-            let asciiResult = decodeToASCII(from: numbers)
             let utf8Result = decodeToUTF8(from: numbers)
-            
-            // Nouvelle recherche intensive
             let longestSequenceResult = findLongestUTF8Sequence(from: numbers)
 
             DispatchQueue.main.async {
                 let newResult = DecodingResult(
-                    timestamp: Date(), numbers: numbers,
-                    decodedASCII: asciiResult, decodedUTF8: utf8Result,
+                    timestamp: Date(), userQuery: queryForThisRun, numbers: numbers,
+                    decodedASCII: "", // ASCII n'est plus pertinent ici, on pourrait le supprimer
+                    decodedUTF8: utf8Result,
                     longestUTF8Sequence: longestSequenceResult.sequence,
                     longestUTF8StartBit: longestSequenceResult.startBit,
                     longestUTF8ByteLength: longestSequenceResult.byteLength
                 )
                 history.insert(newResult, at: 0)
                 isProcessing = false
+                userQuery = "" // Optionnel: vider le champ après génération
             }
         }
     }
     
-    /// NOUVELLE FONCTION : Recherche la plus longue sous-séquence UTF-8 valide
     private func findLongestUTF8Sequence(from numbers: [UInt64]) -> (sequence: String, startBit: Int, byteLength: Int) {
         let buffer = BitBuffer(numbers: numbers)
         var overallBestSequence = ""
         var overallBestStartBit = 0
 
-        // Itérer à travers chaque position de bit de départ possible
-        for startBit in 0..<(buffer.totalBits - 7) { // Il faut au moins 8 bits pour 1 octet
+        for startBit in 0..<(buffer.totalBits - 7) {
             var currentBytes: [UInt8] = []
             var longestValidStringForThisStart = ""
             
-            // Essayer de lire de plus en plus d'octets à partir de ce point de départ
             for byteIndex in 0... {
                 let currentBitOffset = startBit + (byteIndex * 8)
-                guard let byteValue = buffer.read(bits: 8, from: currentBitOffset) else {
-                    break // Fin du flux de bits
-                }
+                guard let byteValue = buffer.read(bits: 8, from: currentBitOffset) else { break }
                 currentBytes.append(UInt8(truncatingIfNeeded: byteValue))
-                
-                // Essayer de décoder la séquence d'octets actuelle
                 let testString = String(decoding: currentBytes, as: UTF8.self)
                 
-                // Si le décodage ne produit pas de caractère d'erreur (), la séquence est valide
                 if !testString.contains("\u{FFFD}") {
                     longestValidStringForThisStart = testString
-                } else {
-                    // Le dernier octet a rendu la séquence invalide, on arrête pour ce point de départ
-                    break
-                }
+                } else { break }
             }
 
-            // Si la meilleure chaîne pour ce point de départ est meilleure que la meilleure globale, on la garde
-            // On privilégie la longueur en caractères, pas en octets.
             if longestValidStringForThisStart.count > overallBestSequence.count {
                 overallBestSequence = longestValidStringForThisStart
                 overallBestStartBit = startBit
             }
         }
-        
         return (overallBestSequence, overallBestStartBit, overallBestSequence.utf8.count)
-    }
-
-    private func decodeToASCII(from numbers: [UInt64]) -> String {
-        var bitStream = BitStream(numbers: numbers); var result = ""
-        while let byteValue = bitStream.read(bits: 8) {
-            let byte = UInt8(truncatingIfNeeded: byteValue)
-            if byte >= 32 && byte <= 126 { result.append(Character(Unicode.Scalar(byte))) }
-        }
-        return result
     }
 
     private func decodeToUTF8(from numbers: [UInt64]) -> String {
@@ -350,8 +341,6 @@ struct NumberDecoderApp: App {
         }
     }
 }
-
-
 
 
 

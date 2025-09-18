@@ -17,7 +17,7 @@ struct PersistenceController {
         for _ in 0..<2 {
             let newItem = Trial(context: viewContext)
             newItem.timestamp = Date()
-            newItem.result = RandomMessagesGenerator().kindlyAskAMessage()
+            newItem.result = RandomMessagesGenerator().retrieveText()
         }
         do {
             try viewContext.save()

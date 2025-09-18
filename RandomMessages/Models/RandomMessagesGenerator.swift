@@ -19,34 +19,6 @@ class RandomMessagesGenerator {
         case type1
         case type2
     }
-    
-	// Method Generated & Normalised
-//	var charsAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-//	var charsSpecial = "#@&é\"'(§è!çà)-_^¨$*ù%´`£=+:/;.,?"
-//	var charsNumeric = "1234567890"
-//
-////	init() {
-////		var cn: Int = 0
-////		var sn: Int = 0
-////		var nn: Int = 0
-////
-////		var str: String = ""
-////
-////		repeat {
-////			repeat {
-////				repeat {
-////					var idx: String.Index
-////					idx.samePosition(in: <#T##String#>)
-////					str.append(charsAlpha.substring(to: idx))
-////
-////				} while cn < charsAlpha.count
-////			} while sn < charsSpecial.count
-////		} while nn < charsNumeric.count
-////
-////	}
-//
-//	var charChart3 = [[String]]()
-//
 //		// Method HARDCODED
 	var charChart2 = [[ "0", "A", "B", "C", "D", "E", "F", "G", "H", "I"],
 					 [ "J", "1", "K", "L", "M", "N", "O", "P", "Q", "R"],
@@ -72,12 +44,7 @@ class RandomMessagesGenerator {
 					 [  "%", "£", "€", "°", "\'", "\"", "_", "\t", "\n", "~"]
 	]
 
-	func kindlyAskAMessage() -> String {
-
-		return decodeFromRandom()
-	}
-
-	func nervouslyAMessage() -> String {
+	func retrieveText() -> String {
 
 		return decodeFromRandom()
 	}
