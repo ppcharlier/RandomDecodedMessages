@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F93D8372E7C7E830085E89A /* RandomDecodedMessages.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F93D8352E7C7E830085E89A /* RandomDecodedMessages.xcdatamodeld */; };
 		5F9A18752867BF5D005CFA18 /* RandomMessagesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */; };
 		5F9A18792867BF5E005CFA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9A18782867BF5E005CFA18 /* Assets.xcassets */; };
 		5F9A187C2867BF5E005CFA18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9A187B2867BF5E005CFA18 /* Preview Assets.xcassets */; };
-		5F9A187E2867BF5E005CFA18 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A187D2867BF5E005CFA18 /* Persistence.swift */; };
 		5F9A18812867BF5F005CFA18 /* RandomMessages.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */; };
 		5F9A188B2867BF5F005CFA18 /* RandomMessagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A188A2867BF5F005CFA18 /* RandomMessagesTests.swift */; };
 		5F9A18952867BF5F005CFA18 /* RandomMessagesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A18942867BF5F005CFA18 /* RandomMessagesUITests.swift */; };
@@ -38,11 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F93D8362E7C7E830085E89A /* RandomDecodedMessages.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RandomDecodedMessages.xcdatamodel; sourceTree = "<group>"; };
 		5F9A18712867BF5D005CFA18 /* RandomDecodedMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomDecodedMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesApp.swift; sourceTree = "<group>"; };
 		5F9A18782867BF5E005CFA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F9A187B2867BF5E005CFA18 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5F9A187D2867BF5E005CFA18 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5F9A18802867BF5F005CFA18 /* RandomMessages.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RandomMessages.xcdatamodel; sourceTree = "<group>"; };
 		5F9A18862867BF5F005CFA18 /* RandomDecodedMessagesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomDecodedMessagesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9A188A2867BF5F005CFA18 /* RandomMessagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMessagesTests.swift; sourceTree = "<group>"; };
@@ -82,6 +82,7 @@
 		5F9A18682867BF5D005CFA18 = {
 			isa = PBXGroup;
 			children = (
+				5F93D8352E7C7E830085E89A /* RandomDecodedMessages.xcdatamodeld */,
 				5F9A18732867BF5D005CFA18 /* RandomMessages */,
 				5F9A18892867BF5F005CFA18 /* RandomMessagesTests */,
 				5F9A18932867BF5F005CFA18 /* RandomMessagesUITests */,
@@ -163,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				5F9A18742867BF5D005CFA18 /* RandomMessagesApp.swift */,
-				5F9A187D2867BF5E005CFA18 /* Persistence.swift */,
 				5F9A18782867BF5E005CFA18 /* Assets.xcassets */,
 				5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */,
 				EB0317DA29F712D700E2236C /* TrialExtension.swift */,
@@ -303,8 +303,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB0317D929F7103500E2236C /* AttributedText.swift in Sources */,
+				5F93D8372E7C7E830085E89A /* RandomDecodedMessages.xcdatamodeld in Sources */,
 				5F9A18812867BF5F005CFA18 /* RandomMessages.xcdatamodeld in Sources */,
-				5F9A187E2867BF5E005CFA18 /* Persistence.swift in Sources */,
 				EB0317DB29F712D700E2236C /* TrialExtension.swift in Sources */,
 				5F9A18752867BF5D005CFA18 /* RandomMessagesApp.swift in Sources */,
 			);
@@ -637,6 +637,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		5F93D8352E7C7E830085E89A /* RandomDecodedMessages.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5F93D8362E7C7E830085E89A /* RandomDecodedMessages.xcdatamodel */,
+			);
+			currentVersion = 5F93D8362E7C7E830085E89A /* RandomDecodedMessages.xcdatamodel */;
+			path = RandomDecodedMessages.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		5F9A187F2867BF5F005CFA18 /* RandomMessages.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
