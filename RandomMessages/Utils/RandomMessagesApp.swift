@@ -285,7 +285,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - NOUVELLE VUE : Flux Continu
+// MARK: - NOUVELLE VUE : Flux Continu (Mise à jour)
 
 struct ContinuousDecodingView: View {
     @State private var decodedMessages: String = ""
@@ -293,14 +293,33 @@ struct ContinuousDecodingView: View {
     @State private var messageCount = 0
     @State private var decodingTask: Task<Void, Never>?
 
+    @State private var userQuery: String = ""
+    @FocusState private var isTextFieldFocused: Bool
+
     private let generator = RandomMessagesGenerator()
 
     var body: some View {
         VStack(spacing: 0) {
-            // --- Panneau de statistiques ---
-            HStack {
-                Text("Messages Générés : \(messageCount)").font(.headline)
-                Spacer()
+            // --- Panneau de contrôle et de statistiques ---
+            VStack(spacing: 12) {
+                TextField("Formez vos pensées ici... le flux s'arrêtera.", text: $userQuery, axis: .vertical)
+                    .focused($isTextFieldFocused)
+                    .padding(10)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10)
+                    .lineLimit(1...3)
+                    .tint(.orange)
+
+                HStack {
+                    if isTextFieldFocused {
+                        Label("Flux en pause", systemImage: "pause.circle.fill")
+                            .font(.headline)
+                            .foregroundColor(.orange)
+                    } else {
+                        Text("Messages Générés : \(messageCount)").font(.headline)
+                    }
+                    Spacer()
+                }
             }
             .padding()
             .background(Color(.systemGroupedBackground))
@@ -315,7 +334,6 @@ struct ContinuousDecodingView: View {
                         .id("bottom")
                 }
                 .onChange(of: decodedMessages) { _ in
-                    // Fait défiler automatiquement vers le bas
                     proxy.scrollTo("bottom", anchor: .bottom)
                 }
             }
@@ -334,6 +352,18 @@ struct ContinuousDecodingView: View {
         }
         .navigationTitle("Flux Continu")
         .navigationBarTitleDisplayMode(.inline)
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
+        // MODIFICATION ICI : Ajout de la logique pour insérer la pensée de l'utilisateur
+        .onChange(of: isTextFieldFocused) { isFocused in
+            if !isFocused && !userQuery.isEmpty {
+                // S'exécute quand l'utilisateur quitte le champ de texte
+                let formattedQuery = "\n> [PENSÉE] : \(userQuery)\n---\n"
+                decodedMessages.append(formattedQuery)
+                userQuery = "" // Vide le champ de texte
+            }
+        }
     }
 
     private func toggleDecoding() {
@@ -346,27 +376,27 @@ struct ContinuousDecodingView: View {
     }
 
     private func startDecoding() {
-        // Démarrer une nouvelle tâche asynchrone pour ne pas bloquer l'UI
         decodingTask = Task {
             while !Task.isCancelled {
-                // 1. Générer le texte brut (chiffres)
+                let isFocused = await MainActor.run { isTextFieldFocused }
+                if isFocused {
+                    do {
+                        try await Task.sleep(nanoseconds: 500_000_000)
+                        continue
+                    } catch { break }
+                }
+                
                 let rawText = generator.retrieveText()
-                // 2. Décoder avec votre méthode
                 let decodedText = generator.correspondancePerChart(message: rawText, charChart: generator.charChart)
                 
-                // 3. Mettre à jour l'UI sur le thread principal
                 await MainActor.run {
                     messageCount += 1
                     decodedMessages.append("\(decodedText)\n---\n")
                 }
                 
-                // 4. Petite pause pour éviter de surcharger le CPU
                 do {
-                    try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconde
-                } catch {
-                    // La tâche a été annulée pendant le sleep
-                    break
-                }
+                    try await Task.sleep(nanoseconds: 100_000_000)
+                } catch { break }
             }
         }
     }
@@ -384,7 +414,6 @@ struct ContinuousDecodingView: View {
 struct NumberDecoderApp: App {
     var body: some Scene {
         WindowGroup {
-            // Utilisation d'une TabView pour naviguer entre les deux vues
             TabView {
                 ContentView()
                     .tabItem {
