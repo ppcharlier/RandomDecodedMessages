@@ -269,25 +269,60 @@ struct ContinuousDecodingView: View {
 
     @State private var isDecoding=false;@State private var decodingTask:Task<Void,Never>?;@State private var userQuery="";@FocusState private var isTextFieldFocused:Bool
     private let generator = RandomMessagesGenerator()
+    private let bottomID = "bottom-anchor"
 
     var body: some View {
         VStack(spacing:0){
-            VStack(spacing:12){TextField("Formez vos pensées...",text:$userQuery,axis:.vertical).focused($isTextFieldFocused).padding(10).background(Color(.secondarySystemBackground)).cornerRadius(10).lineLimit(1...3).tint(.orange);
-                HStack{
-                    #if USE_CORE_DATA
-                    Text("Séquences: \(flowItems.filter{$0.type=="sequence"}.count)").font(.headline)
-                    #else
-                    Text("Séquences: \(flowItems.filter { if case .decodedSequence = $0 { return true } else { return false } }.count)").font(.headline)
-                    #endif
-                    Spacer()
-                }
-            }.padding().background(Color(.systemGroupedBackground))
+            VStack(spacing:12){TextField("Formez vos pensées...",text:$userQuery,axis:.vertical).focused($isTextFieldFocused).padding(10).background(Color(.secondarySystemBackground)).cornerRadius(10).lineLimit(1...3).tint(.orange);HStack{if isTextFieldFocused{Label("Flux en pause",systemImage:"pause.circle.fill").font(.headline).foregroundColor(.orange)}else{
+                #if USE_CORE_DATA
+                Text("Séquences: \(flowItems.filter{$0.type=="sequence"}.count)").font(.headline)
+                #else
+                Text("Séquences: \(flowItems.filter{if case .decodedSequence = $0 {return true} else {return false}}.count)").font(.headline)
+                #endif
+            };Spacer()}}.padding().background(Color(.systemGroupedBackground))
             
-            #if USE_CORE_DATA
-            List{ForEach(flowItems){item in if item.type=="thought"{thoughtCell(text:item.thoughtText ?? "")}else if let seqData=item.sequence{NavigationLink(destination:FlowDetailView(sequenceData:seqData)){sequenceCell(data:seqData)}}}.onDelete(perform:deleteItems).listRowSeparator(.hidden).listRowInsets(EdgeInsets(top:8,leading:16,bottom:8,trailing:16))}.listStyle(.plain)
-            #else
-            List{ForEach(flowItems){item in switch item { case .userThought(_, let text): thoughtCell(text: text); case .decodedSequence(let data): NavigationLink(destination: FlowDetailView(sequenceData: data)) { sequenceCell(data: data) } }}.onDelete(perform:deleteItems).listRowSeparator(.hidden).listRowInsets(EdgeInsets(top:8,leading:16,bottom:8,trailing:16))}.listStyle(.plain)
-            #endif
+            // MODIFICATION ICI: Ajout du ScrollViewReader et de l'ancre
+            ScrollViewReader { proxy in
+                List {
+                    #if USE_CORE_DATA
+                    ForEach(flowItems) { item in
+                        if item.type == "thought" {
+                            thoughtCell(text: item.thoughtText ?? "")
+                        } else if let seqData = item.sequence {
+                            NavigationLink(destination: FlowDetailView(sequenceData: seqData)) {
+                                sequenceCell(data: seqData)
+                            }
+                        }
+                    }.onDelete(perform:deleteItems)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top:8,leading:16,bottom:8,trailing:16))
+                    #else
+                    ForEach(flowItems) { item in
+                        switch item {
+                        case .userThought(_, let text):
+                            thoughtCell(text: text)
+                        case .decodedSequence(let data):
+                            NavigationLink(destination: FlowDetailView(sequenceData: data)) {
+                                sequenceCell(data: data)
+                            }
+                        }
+                    }.onDelete(perform:deleteItems)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top:8,leading:16,bottom:8,trailing:16))
+                    #endif
+                    
+
+                    // Ancre invisible à la fin de la liste
+                    Color.clear.frame(height: 1).id(bottomID)
+                }
+                .listStyle(.plain)
+                .onChange(of: flowItems.count) { _ in
+                    // Déclencheur pour défiler vers le bas
+                    withAnimation {
+                        proxy.scrollTo(bottomID, anchor: .bottom)
+                    }
+                }
+            }
             
             Button(action:toggleDecoding){Label(isDecoding ?"Arrêter":"Démarrer",systemImage:isDecoding ?"stop.circle.fill":"play.circle.fill").font(.title2.bold()).frame(maxWidth:.infinity)}.padding().background(isDecoding ?.red:.green).foregroundColor(.white).buttonStyle(.borderedProminent).tint(isDecoding ?.red:.green)
         }.navigationTitle("Flux Continu").navigationBarTitleDisplayMode(.inline).onTapGesture{isTextFieldFocused=false}.onChange(of:isTextFieldFocused){isFocused in if !isFocused, !userQuery.isEmpty{addThought(text:userQuery);userQuery=""}}
