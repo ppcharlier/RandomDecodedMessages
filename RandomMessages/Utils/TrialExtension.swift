@@ -12,7 +12,7 @@ extension Trial {
     public var chart1A : String {
         let rmg = RandomMessagesGenerator()
         if let msg = self.result {
-            return  rmg.correspondancePerChart(message: msg, chartType: .type1)
+            return  rmg.correspondancePerChart(message: msg, charChart: rmg.charChart)
         }else{
             return ""
         }
